@@ -7,28 +7,40 @@ function CheckSession($conn) {
   if ($result = SqlSelect('*','user',$where,$conn)) {
 
     $user = Fetch($result);
-    print_r($user);
+
     if ($user['user_exp'] > time()) {
-      echo time()+360;
-      $new_exp = time() + 3600;
-      SqlUpdate('user', 'user_token='.$new_exp.'',$user['user_id'],$conn);
+
+      if (ReNewSession($conn, $user['user_id']) === TRUE) {
+        return TRUE;
+      } else {
+        $error = 'Ha ocurrido un error actualizando su sessión. Por favor intente de nuevo.';
+        return $error;
+      }
 
     } else {
 
       $error = 'Su sessión ha expirado. Por favor intente de nuevo.';
-      include 'pages/login-form.php';
+      return $error;
 
     }
 
   } else {
 
     $error = 'Algún dato de la sessión está corrupta. Por favor intente de nuevo.';
-    include 'pages/login-form.php';
+    return $error;
 
   }
 
 }
 
-
+function ReNewSession($conn, $user_id)
+{
+  $new_exp = time() + 3600;
+  if (SqlUpdate('user', 'user_exp='.$new_exp.'', 'user_id ='.$user_id, $conn)) {
+    return TRUE;
+  } else {
+    return FALSE;
+  }
+}
 
 ?>

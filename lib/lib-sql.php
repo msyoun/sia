@@ -42,10 +42,13 @@ function SqlInsert($table, $column, $values, $conn) {
 function SqlUpdate($table, $values, $where = '', $conn)
 {
 
+
   $sql = "UPDATE $table SET $values";
+
   if ($where != '') {
-    $sql .= ' WHERE $where';
+    $sql .= ' WHERE '. $where;
   }
+
   if ($conn->query($sql) === TRUE) {
     return TRUE;
   } else {
@@ -61,10 +64,11 @@ function Fetch($result, $value = 0, $n = 0)
     $rows[$i] = $row;
     $i++;
   }
-  echo $n;
-  echo $value;
+
   if ($n == 0 && $value != '') {
-    return "chau";//$rows[$n][$value];
+    return $rows[$n][$value];
+  } else if ($n == 0 && $value == '') {
+    return $rows[0];
   } else {
     return $rows;
   }

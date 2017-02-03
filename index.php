@@ -3,8 +3,6 @@
 include 'lib/config.php';
 
 session_start();
-$_SESSION['ID'] = 1;
-$_SESSION['TOKEN'] = 1;
 
 if (isset($_SESSION['ID']) && isset($_SESSION['TOKEN'])) {
 
@@ -13,7 +11,15 @@ if (isset($_SESSION['ID']) && isset($_SESSION['TOKEN'])) {
   if(CheckMysql($conn)){
 
     include 'lib/lib-lock.php';
-    if (CheckSession($conn) === TRUE) {
+    $check = CheckSession($conn);
+    if ($check === TRUE) {
+
+      
+
+    } else {
+
+      $error = $check;
+      include 'pages/login-form.php';
 
     }
 
