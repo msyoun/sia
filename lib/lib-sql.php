@@ -17,12 +17,19 @@ function SqlSelect($select, $table, $where='', $conn) {
   if ($where != '') {
     $sql .= ' WHERE '.$where;
   }
-  $result = $conn -> query($sql);
-  if ($result -> num_rows > 0) {
-    return $result;
+  //echo $sql;
+
+  //Solo si logra el query
+  if($result = $conn -> query($sql)) {
+    if ($result -> num_rows > 0) {
+      return $result;
+    } else {
+      return FALSE;
+    }
   } else {
     return FALSE;
   }
+
 
 
 }

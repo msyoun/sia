@@ -2,7 +2,7 @@
 
 function CheckSession($conn) {
 
-  $where = 'user_id = '.$_SESSION['ID'].' && user_token ='.$_SESSION['TOKEN'];
+  $where = 'user_id = '.$_SESSION['ID'].' && user_token ="'.$_SESSION['TOKEN'].'"';
 
   if ($result = SqlSelect('*','user',$where,$conn)) {
 
@@ -31,16 +31,6 @@ function CheckSession($conn) {
 
   }
 
-}
-
-function ReNewSession($conn, $user_id)
-{
-  $new_exp = time() + 3600;
-  if (SqlUpdate('user', 'user_exp='.$new_exp.'', 'user_id ='.$user_id, $conn)) {
-    return TRUE;
-  } else {
-    return FALSE;
-  }
 }
 
 ?>

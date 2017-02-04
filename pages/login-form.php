@@ -1,7 +1,9 @@
 <div class="login-form-wrap">
-  <form class="login-form" action="index.html" method="post">
+  <form class="login-form" action="etc/login.php" method="post">
     <?php
-
+      if(isset($_POST['error'])) {
+        $error = $_POST['error'];
+      }
       if (isset($error)) {
         ?>
         <div class="login-form-input-wrap">
