@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
 <?php
 
 include 'lib/config.php';
@@ -23,8 +30,7 @@ if (isset($_SESSION['ID']) && isset($_SESSION['TOKEN'])) {
     $check = CheckSession($conn);
     if ($check === TRUE) {
 
-      //Cuando todos los chequeos están correctas
-      echo "Por fin, llegamos al pantalla de login";
+      include 'lib/lib-loadpage.php';
 
     } else {
 
@@ -48,3 +54,5 @@ if (isset($_SESSION['ID']) && isset($_SESSION['TOKEN'])) {
 }
 
 ?>
+</body>
+</html>

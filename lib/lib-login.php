@@ -6,6 +6,7 @@ function Login($username, $password, $conn)
   unset($_SESSION['user']);
   unset($_SESSION['pass']);
 
+  //comparar encryptación con SHA512
   $where = 'user_name ="'.$username.'" && user_pass = "'.$password.'"';
 
   if ($result = SqlSelect('*','user',$where, $conn)) {
